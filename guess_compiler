@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mygcc guess6.c readline.c -o guess6 str2int.c
+
