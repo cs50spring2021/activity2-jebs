@@ -1,42 +1,19 @@
-/* 
- * readline.c - a utility function to safely read one line of input
- * See readline.h for documentation.
- *
- * David Kotz, April 2016, 2017, 2019, 2021
- */
+/* ***************** str2int ********************** */
+/*
+    * Convert a string to an integer, returning that integer.
+    * Returns true if successful, or false if any error.
+    * It is an error if there is any additional character beyond the integ    er.
+    * Assumes number is a valid pointer.
+*/
 
-#include <stdio.h>
-#include <string.h>
 #include <stdbool.h>
 #include "str2int.h"
 
-bool 
-readLine(char * buf, const int len) 
-{
-  int pos = 0;          // where in the buffer do we place next char?
-
-  // fill the buffer from stdin until buf is full, until EOF, or until newline
-  while ( !feof(stdin) && pos < len-1 ) {
-    // read and store a character
-    char c = getchar();
-    if (c == '\n') {
-      // end of line: terminate buf and return
-      buf[pos++] = '\0';
-      return true;
-    } else {
-      // add char to the buffer
-      buf[pos++] = c;
-    }
-  }
-  // terminate buffer
-  buf[pos++] = '\0';
-
-  // error: file ended or buffer filled before newline discovered.
-
-  // strip characters until end of file or newline is finally reached
-  while ( !feof(stdin) && getchar() != '\n' ) {
-    ; // discard the rest of characters on input line
-  }
-
-  return false;
+bool str2int(const char string[], int * number){
+          // The following is one of my favorite tricks.
+           // We use sscanf() to parse a number, expecting there to be no follow    ing
+           // character ... but if there is, the input is invalid.
+           // For example, 1234x will be invalid, as would 12.34 or just x.
+          char nextchar;
+         return (sscanf(string, "%d%c", number, &nextchar) == 1);
 }
