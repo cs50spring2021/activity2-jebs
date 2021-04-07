@@ -15,7 +15,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdbool.h>
-#include "readline.h" // informs C about functions in readline.c file.
+#include "str2int.h" // informs C about functions in str2int.c file.
 
 /* function prototype *declaration*; the function is *defined* below */
 int askGuess(const int low, const int high);
